@@ -1,0 +1,49 @@
+
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  {% for kat in cats %}
+    <li><a href="kategoria/{{kat.id_kat}}"> {{kat.tytul_kat}}</a></li>
+  {%endfor%}
+  </ul>
+  <nav class="bg_primary">
+    <div class="nav-wrapper">
+      {% if user.is_superuser or "Moderator" in user.groups.all%}
+      <ul class="left hide-on-med-and-down">
+          <li>Witaj {{request.user.username}}</li>
+            <li><a href="/admin">Panel admina</a></li>
+            <li><a href="/dodaj_post">Dodaj Post</a></li>
+      </ul>
+      {% else %}
+      <ul class="left hide-on-med-and-down">
+          <li>Witaj {{request.user.username}}</li>
+      </ul>
+      {%endif%}
+      <a href="/" class="brand-logo center">BLOG</a>
+      <ul class="right hide-on-med-and-down">
+        {% if user.is_superuser %}
+
+        <li><a href="/dodaj_kategorie">Dodaj Kategorie</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/uzytkownicy/edytuj_profil">Profil</a></li>
+        <li><a href="/accounts/logout/">Wyloguj</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Kategoria<i class="material-icons right">arrow_drop_down</i></a></li>
+        {% elif "Moderator" in user.groups.all %}
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/uzytkownicy/edytuj_profil">Profil</a></li>
+        <li><a href="/accounts/logout/">Wyloguj</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Kategoria<i class="material-icons right">arrow_drop_down</i></a></li>
+        {% elif user.is_authenticated %}
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/uzytkownicy/edytuj_profil">Profil</a></li>
+        <li><a href="/accounts/logout/">Wyloguj</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Kategoria<i class="material-icons right">arrow_drop_down</i></a></li>
+        {% else %}
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/uzytkownicy/login">Zaloguj</a></li>
+        <li><a href="/uzytkownicy/register">Zarejestruj</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Kategoria<i class="material-icons right">arrow_drop_down</i></a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+          

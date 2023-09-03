@@ -1,0 +1,40 @@
+{%extends 'base.html'%}
+
+{%block title%}  {%endblock%}
+
+{% block content %}
+{% for k in posty_kategorii %}
+<div class="conteiner center">
+    <h1> {{k.kategoria}}</h1>
+    <p> Opis kategorii: {{k.kategoria.opis | safe}}</p>
+    <div class="zdjecie">
+        <img class="responsive-img" src="/media/{{k.kategoria.obraz}}">
+    </div>
+</div>
+{%endfor%}
+<ul>
+    {% for p in posty_kategorii %}
+    <div class="container" style="background:wheat!important; border-style: dotted;">
+        <div class="post-container">
+            <div class="container center">
+                <img src="/media/{{ p.obraz }}" alt="{{ p.tytul }}">
+            </div>
+            <div class="container-post center">
+                <h2>{{ p.tytul_post | safe}}</h2>
+                <p>{{ p.tekst|truncatewords:60 | safe}}</p>
+            </div>
+            <div class="container center">
+              {% if user.is_superuser %}
+                <a href="/artykul/{{p.pk}}" class="btn  bg-primary ">Przeczytaj...</a>
+                <a href="/artykul/{{p.id_post}}/edytuj" class="btn  bg-primary ">Edytuj artykuł</a>
+                <a href="/artykul/{{p.id_post}}/usun" class="btn  bg-primary ">Usuń artykuł</a>
+              {% else %}
+                <a href="/artykul/{{p.pk}}" class="btn  bg-primary ">Przeczytaj...</a>
+              {% endif %}
+          </div>
+        </div>
+        <hr>
+        </div>
+    {%endfor%}
+</ul>
+{% endblock %}

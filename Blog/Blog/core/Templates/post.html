@@ -1,0 +1,77 @@
+{%extends 'base.html'%}
+
+{%block title%}  {%endblock%}
+
+{% block content %}
+
+<div class="container center">
+    <div>
+        <div class="tytul-post">
+            <h1>{{post.tytul_post | safe}}</h1>
+        </div>
+        <div class="zdjecie">
+            <img class="image-post" src="/media/{{post.obraz}}">
+        </div>
+        <div class="tresc">
+            <p>{{post.tekst | safe}}</p>
+        </div>
+        <div class="data-dodania">
+            Artykul dodatny: {{post.kiedy_dodane}}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="row" style="margin-top: 20px;">
+            <div class="col s12">
+                <form action="{% url 'lajkuj' post.pk  %}" method="POST">
+                    {% csrf_token %}
+                    {% if zlajkowane%}
+                        <button type="submit", name="id_post" value="{{post.id_post}}" class="btn btn-danger btn-sm">Unlike</button> - {{total_likes}} lajki
+                    {% else %}
+                        <button type="submit", name="id_post" value="{{post.id_post}}" class="btn btn-primary btn-sm">Like</button> - {{total_likes}} lajki
+                    {%endif%}
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="row" style="margin-top: 20px;">
+            <div class="col s12">
+                <div class="col s12 m8"><p>liczba lajków: {{ total_likes }} - Lajki</p></div>
+            </div>
+        </div>
+        {%endif%}
+        <div class="container center"><h5> Komentarze... </H5></div>
+            <div class="col s12">
+            <div class="col 12 m5">
+                {% if not post.Komentarze.all %}
+                Nie ma jeszcze komentarzy...<a href="#">
+                    Dodaj komentarz</a>
+                {%else%}
+                    {% for komentarz in post.Komentarze.all %}
+                    <div class="conteiner center">
+                    <h7>
+                        <div class="container center">
+                        Uzytkownik: {{komentarz.autor | safe}}<br>
+                        Data: {{komentarz.kiedy_dodane | date:"Y-m-d H:i" | safe}} :
+                        </div>
+                    </h7>
+                    <div class="conteiner center">
+                    {{komentarz.tekst | safe}}
+                    <hr>
+                    </div>
+                    </div>
+                    {%endfor%}
+                    <br>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'add_comment' post.id_post %}">Dodaj komentarz</a>
+                    {% else %}
+                    <a href="/uzytkownicy/login/">Dodaj komentarz</a>
+                    {%endif%}
+                {%endif%}
+            </div>
+        </div>
+
+       
+        
+         
+    </div>
+</div>
+{% endblock %}

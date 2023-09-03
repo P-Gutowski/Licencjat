@@ -1,0 +1,55 @@
+{%extends 'base.html'%}
+
+{%block title%} Witaj na moim Blogu {%endblock%}
+
+{% block content %}
+    <div class="owl-carousel" style="background:wheat!important; border-style: dotted;">
+        {% for kat in cats %}
+        <div class="card" style="margin-left:10px;">
+            <div class="img-cat">
+                <img src="/media/{{kat.obraz}}" alt="" class="responsive-img">
+            </div>
+            <div class="card-content">
+
+              <div class="card-title">
+                  {{kat.tytul_kat | safe}}
+              </div>
+
+              <p class="truncate">{{kat.opis | truncatewords:10 |safe}}</p>
+              <div class="container center-align mt20">
+                  <a href="/kategoria/{{kat.id_kat}}" class="btn bg-primary">Kategoria</a>
+              </div>
+
+          </div>
+        </div>
+        {%endfor%}
+    </div>
+
+    <div class="container center" style="background:wheat!important; border-style: dotted;">
+    {% for p in posts %}
+    <div class="post-container center" style="border-bottom: 2px; border-color: black;">
+        <div class="post-image center" style="width: 100%;">
+            <img class="responsive-img" src="/media/{{ p.obraz }}" alt="{{ p.tytul }}">
+        </div>
+        <div class="post-content">
+            <h2>{{ p.tytul_post | safe}}</h2>
+            <p>{{ p.tekst|truncatewords:60 | safe}}</p>
+        </div>
+        <div class="mt20">
+          {% if user.is_superuser %}
+            <a href="/artykul/{{p.pk}}" class="btn  bg-primary ">Przeczytaj...</a>
+            <a href="artykul/{{p.pk}}/edytuj" class="btn  bg-primary ">Edytuj artykuł</a>
+            <a href="artykul/{{p.pk}}/usun" class="btn  bg-primary ">Usuń artykuł</a>
+          {% else %}
+            <a href="/artykul/{{p.pk}}" class="btn  bg-primary ">Przeczytaj...</a>
+          {% endif %}
+      </div>
+    </div>
+    <hr>
+    <br>
+    {% endfor %}
+    </div>
+
+    
+    
+{% endblock %}

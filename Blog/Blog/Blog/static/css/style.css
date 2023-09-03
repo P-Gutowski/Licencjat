@@ -1,0 +1,40 @@
+body {
+    background-color: lightblue;
+  }
+.bg-primary{
+    background:#477091!important;
+    }
+    
+.mt20{
+    margin-top:20px;
+    }
+    
+.container-custom{
+    width:0%!important;
+    margin:auto;
+}
+.container {
+    width: 0%;
+    background: #477091!important;
+}
+
+.post-container {
+    text-align: center;
+    background: #477091;
+}
+
+.post-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+    
+}
+
+.post-content {
+    text-align: center;
+    padding: 15px;
+}
+
+    
+    

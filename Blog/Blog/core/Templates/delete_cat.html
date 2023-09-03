@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{%block title%} Usuń Kategorie {%endblock%}
+{% block content %}
+
+<h2>Usuń Kategorie</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+
+  <div class="col s12 m6">
+  Czy na pewno chcesz usunąc tę kategorie: {{ kategoria.tytul | safe}}
+  <button type="btn btn-primary">Potwierdź</button>
+  </div>
+  </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Edycja profilu {% endblock %}
+{% block content %}
+
+<body style="background: rgba(180, 205, 207, 0.7);"
+<div class="container">
+<div class="row justify-content-center" style="height: 100vh;">
+  <div class="col-6 d-flex justify-content-center align-items-center">
+    <div class="card" style="background-color: rgba(135, 218, 227, 0.7);"> 
+      <div class="card-body center">
+        <h2>Edytuj informacje na profilu</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Zapisz zmiany</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+
+{% endblock %}
